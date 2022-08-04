@@ -1,4 +1,6 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+make: *** No rule to make target 'all'.  Stop.
+
 # GNU Make 4.2.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
@@ -6,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu Aug  4 11:04:28 2022
+# Make data base, printed on Thu Aug  4 17:17:39 2022
 
 # Variables
 
@@ -47,11 +49,13 @@ PATH = /home/aravind/.vscode-server/bin/3b889b090b5ad5793f524b5d1d39fda662b96a2a
 # environment
 LSCOLORS = Gxfxcxdxbxegedabagacad
 # environment
+XDG_RUNTIME_DIR = /mnt/wslg/runtime-dir
+# environment
 NVM_BIN = /home/aravind/.nvm/versions/node/v16.3.0/bin
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-49e96965-c2ca-4c06-884c-cf37d5b539bd.sock
+VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-b844377b-6f19-4766-91fa-b1191e42a938.sock
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -59,11 +63,15 @@ LS_COLORS = rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:
 # automatic
 %F = $(notdir $%)
 # environment
+DISPLAY = :0
+# environment
 PWD = /home/aravind/src/projects/hackathon_backend
 # default
 .LOADED := 
 # environment
-WSL_INTEROP = /run/WSL/2244_interop
+WSL_INTEROP = /run/WSL/337_interop
+# environment
+PULSE_SERVER = /mnt/wslg/PulseServer
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
@@ -138,6 +146,8 @@ HOSTTYPE = x86_64
 ^F = $(notdir $^)
 # default
 SUFFIXES := 
+# environment
+WAYLAND_DISPLAY = wayland-0
 # default
 .INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
 # default
@@ -149,7 +159,7 @@ TERM = xterm-256color
 # environment
 WSL_DISTRO_NAME = Ubuntu-20.04
 # variable set hash-table stats:
-# Load=69/1024=7%, Rehash=0, Collisions=4/94=4%
+# Load=73/1024=7%, Rehash=0, Collisions=4/98=4%
 
 # Pattern-specific Variable Values
 
@@ -157,9 +167,9 @@ WSL_DISTRO_NAME = Ubuntu-20.04
 
 # Directories
 
-# . (device 2064, inode 43447): 10 files, no impossibilities.
+# . (device 2080, inode 43447): 11 files, no impossibilities.
 
-# 10 files, no impossibilities in 1 directories.
+# 11 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -184,7 +194,7 @@ start_server:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-03 22:36:44.61
+#  Last modified 2022-08-04 13:14:16.7399749
 #  File has been updated.
 #  Successfully updated.
 
@@ -194,22 +204,27 @@ Makefile:
 #  Modification time never checked.
 #  File has not been updated.
 
+start_frontend:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 5):
+	cd frontend && yarn dev
+
 # files hash-table stats:
-# Load=5/1024=0%, Rehash=0, Collisions=0/15=0%
+# Load=6/1024=1%, Rehash=0, Collisions=0/16=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 16 / storage = 148 B / avg = 9 B
-# current buf: size = 8162 B / used = 148 B / count = 16 / avg = 9 B
+# strcache buffers: 1 (0) / strings = 18 / storage = 167 B / avg = 9 B
+# current buf: size = 8162 B / used = 167 B / count = 18 / avg = 9 B
 
-# strcache performance: lookups = 21 / hit rate = 23%
+# strcache performance: lookups = 24 / hit rate = 25%
 # hash-table stats:
-# Load=16/8192=0%, Rehash=0, Collisions=1/21=5%
-# Finished Make data base on Thu Aug  4 11:04:28 2022
+# Load=18/8192=0%, Rehash=0, Collisions=1/24=4%
+# Finished Make data base on Thu Aug  4 17:17:39 2022
 
  
-make: *** No rule to make target 'all'.  Stop.
-
