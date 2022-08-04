@@ -1,6 +1,4 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
-make: *** No rule to make target 'all'.  Stop.
-
 # GNU Make 4.2.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
@@ -8,7 +6,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu Aug  4 10:28:56 2022
+# Make data base, printed on Thu Aug  4 11:04:28 2022
 
 # Variables
 
@@ -53,7 +51,7 @@ NVM_BIN = /home/aravind/.nvm/versions/node/v16.3.0/bin
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-de9be8c2-19e4-4a44-9073-71d039f66166.sock
+VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-49e96965-c2ca-4c06-884c-cf37d5b539bd.sock
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -65,7 +63,7 @@ PWD = /home/aravind/src/projects/hackathon_backend
 # default
 .LOADED := 
 # environment
-WSL_INTEROP = /run/WSL/11_interop
+WSL_INTEROP = /run/WSL/2244_interop
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
@@ -159,9 +157,9 @@ WSL_DISTRO_NAME = Ubuntu-20.04
 
 # Directories
 
-# . (device 2064, inode 43447): 9 files, no impossibilities.
+# . (device 2064, inode 43447): 10 files, no impossibilities.
 
-# 9 files, no impossibilities in 1 directories.
+# 10 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -204,12 +202,14 @@ Makefile:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 15 / storage = 137 B / avg = 9 B
-# current buf: size = 8162 B / used = 137 B / count = 15 / avg = 9 B
+# strcache buffers: 1 (0) / strings = 16 / storage = 148 B / avg = 9 B
+# current buf: size = 8162 B / used = 148 B / count = 16 / avg = 9 B
 
-# strcache performance: lookups = 20 / hit rate = 25%
+# strcache performance: lookups = 21 / hit rate = 23%
 # hash-table stats:
-# Load=15/8192=0%, Rehash=0, Collisions=1/20=5%
-# Finished Make data base on Thu Aug  4 10:28:56 2022
+# Load=16/8192=0%, Rehash=0, Collisions=1/21=5%
+# Finished Make data base on Thu Aug  4 11:04:28 2022
 
  
+make: *** No rule to make target 'all'.  Stop.
+
