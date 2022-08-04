@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu Aug  4 17:17:39 2022
+# Make data base, printed on Thu Aug  4 22:11:55 2022
 
 # Variables
 
@@ -55,7 +55,7 @@ NVM_BIN = /home/aravind/.nvm/versions/node/v16.3.0/bin
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-b844377b-6f19-4766-91fa-b1191e42a938.sock
+VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-7515fbca-7122-491f-9827-e09f857e740e.sock
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -69,7 +69,7 @@ PWD = /home/aravind/src/projects/hackathon_backend
 # default
 .LOADED := 
 # environment
-WSL_INTEROP = /run/WSL/337_interop
+WSL_INTEROP = /run/WSL/17437_interop
 # environment
 PULSE_SERVER = /mnt/wslg/PulseServer
 # environment
@@ -189,12 +189,12 @@ start_server:
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 2):
-	uvicorn app.main:app --port 3000 --reload
+	uvicorn app.main:app --port 3001 --reload
 
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-04 13:14:16.7399749
+#  Last modified 2022-08-04 18:54:44.405664682
 #  File has been updated.
 #  Successfully updated.
 
@@ -225,6 +225,6 @@ start_frontend:
 # strcache performance: lookups = 24 / hit rate = 25%
 # hash-table stats:
 # Load=18/8192=0%, Rehash=0, Collisions=1/24=4%
-# Finished Make data base on Thu Aug  4 17:17:39 2022
+# Finished Make data base on Thu Aug  4 22:11:55 2022
 
  

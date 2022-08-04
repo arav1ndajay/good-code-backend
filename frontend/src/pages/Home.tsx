@@ -4,16 +4,28 @@ import {
   Dialog,
   Text,
   Spinner,
-  ThemeProvider,
 } from "@primer/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Logo from "../../public/logo.png";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
+import request from "superagent"
 
 export function Home() {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
-  const params = useParams();
-  console.log(params.code)
+  const [searchParams, setSearchParams] = useSearchParams();
+  
+  useEffect(()=>{
+    const code = searchParams.get("code")
+    if (code != null){
+      request.post("http://localhost:3001")
+      .send({code: code})
+      .then(res => {
+        alert('yay got ' + JSON.stringify(res.body));
+      })
+    }
+
+  },[])
+
   return (
     <Box minHeight={"100vh"} display="flex" flexDirection={"column"}>
       <Box position={"sticky"} top={0} zIndex={1}>

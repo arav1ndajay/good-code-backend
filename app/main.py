@@ -6,6 +6,8 @@ import requests
 from sqlalchemy.orm import Session
 from . import models
 from .database import SessionLocal, engine
+from starlette.middleware.cors import CORSMiddleware
+
 
 import jwt
 
@@ -13,6 +15,19 @@ models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
+origins = [
+    "http://localhost",
+    "http://localhost:3000",
+    "http://localhost:3001"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Dependency
 def get_db():
@@ -36,8 +51,8 @@ class Req(BaseModel):
 # }
   
 
-@app.get("/")
-async def authorize_mediavalet(code: str, scope: str, state: str, db: Session = Depends(get_db)):
+@app.post("/")
+async def authorize_mediavalet(code: str, db: Session = Depends(get_db)):
     url = "https://login.mediavalet.com/connect/token"
 
     response = requests.post(url, data={
@@ -51,29 +66,32 @@ async def authorize_mediavalet(code: str, scope: str, state: str, db: Session = 
     })
     result = response.json()
     auth_token = result["access_token"]
+    print(auth_token)
 
-    url2 = "https://api.mediavalet.com/users/current"
-    response2 = requests.get(url2, headers={
-        'Content-Type': 'application/x-www-form-urlencoded',
-        "Ocp-Apim-Subscription-Key": settings.primary_key,
-        "Authorization": "Bearer " + auth_token,
-    })
-    result2 = response2.json()
-    id = result2["payload"]["id"]
+    return result
 
-    db_user = models.User(id=id, auth_token=auth_token)
-    user = db.get(models.User, id)
-    if not user:
-        db.add(db_user)
-        db.commit()
-        db.refresh(db_user)
-    else:
-        setattr(user, "auth_token", auth_token)
-        db.commit()
-        db.refresh(user)
+    # url2 = "https://api.mediavalet.com/users/current"
+    # response2 = requests.get(url2, headers={
+    #     'Content-Type': 'application/x-www-form-urlencoded',
+    #     "Ocp-Apim-Subscription-Key": settings.primary_key,
+    #     "Authorization": "Bearer " + auth_token,
+    # })
+    # result2 = response2.json()
+    # id = result2["payload"]["id"]
 
-    encoded_jwt = jwt.encode({"id": id}, "secret", algorithm="HS256")
-    return RedirectResponse(settings.frontend_url + "/redirect/" + encoded_jwt.decode("UTF-8"))
+    # db_user = models.User(id=id, auth_token=auth_token)
+    # user = db.get(models.User, id)
+    # if not user:
+    #     db.add(db_user)
+    #     db.commit()
+    #     db.refresh(db_user)
+    # else:
+    #     setattr(user, "auth_token", auth_token)
+    #     db.commit()
+    #     db.refresh(user)
+
+    # encoded_jwt = jwt.encode({"id": id}, "secret", algorithm="HS256")
+    # return RedirectResponse(settings.frontend_url + "/redirect/" + encoded_jwt.decode("UTF-8"))
 
 @app.get("/folders")
 async def get_folders():
