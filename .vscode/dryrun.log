@@ -1,0 +1,5 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/aravind/src/projects/hackathon_backend'
+uvicorn app.main:app --port 3000 --reload
+make: Leaving directory '/home/aravind/src/projects/hackathon_backend'
+ 

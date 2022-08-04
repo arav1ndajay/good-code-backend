@@ -18,7 +18,7 @@ class Req(BaseModel):
   
 
 @app.get("/")
-async def lemmao(code: str, scope: str, state: str):
+async def authorize_mediavalet(code: str, scope: str, state: str):
     url = "https://login.mediavalet.com/connect/token"
     print(code)
     response = requests.post(url, data={
@@ -30,6 +30,30 @@ async def lemmao(code: str, scope: str, state: str):
     }, headers={
         'Content-Type': 'application/x-www-form-urlencoded'
     })
-    print(response.json())
-    return response.json()
+    result = response.json()
+    print(result)
+
+    f = open("media_token.txt", "w")
+    f.write(result["access_token"])
+    f.close()
+
+    return result
+
+@app.get("/folders")
+async def get_folders():
+    url = "https://api.mediavalet.com/folders"
+    f = open("media_token.txt", "r")
+    auth_token = f.read()
+    f.close()
+
+    response = requests.get(url, headers={
+        'Content-Type': 'application/x-www-form-urlencoded',
+        "Ocp-Apim-Subscription-Key": "03e0a3d8270a432d9ede6e2cfca073dd",
+        "Authorization": "Bearer " + auth_token,
+    })
+    result = response.json()
+    print(result)
+
+    return result
+
 
