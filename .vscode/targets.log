@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu Aug  4 22:11:55 2022
+# Make data base, printed on Fri Aug  5 23:20:50 2022
 
 # Variables
 
@@ -17,7 +17,7 @@ make: *** No rule to make target 'all'.  Stop.
 # automatic
 ?F = $(notdir $?)
 # environment
-WSLENV = VSCODE_WSL_EXT_LOCATION/up
+WSLENV = VSCODE_WSL_EXT_LOCATION/up:VSCODE_SERVER_TAR/up
 # default
 .SHELLFLAGS := -c
 # environment
@@ -45,7 +45,7 @@ VSCODE_CWD = /mnt/c/Users/aravi/AppData/Local/Programs/Microsoft VS Code
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
-PATH = /home/aravind/.vscode-server/bin/3b889b090b5ad5793f524b5d1d39fda662b96a2a/bin/remote-cli:/home/aravind/.nvm/versions/node/v16.3.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Python27/:/mnt/c/Python27/Scripts:/mnt/c/Program Files (x86)/Common Files/Oracle/Java/javapath:/mnt/c/Program Files/Common Files/Oracle/Java/javapath:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:/mnt/c/Windows/System32/OpenSSH/:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/Git/cmd:/mnt/c/MinGW/bin:/mnt/c/Program Files/Geth:/mnt/c/ProgramData/chocolatey/bin:/mnt/d/nodejs/:/mnt/c/Program Files/MySQL/MySQL Server 8.0/bin:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files/gnuplot/bin:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/ProgramData/DockerDesktop/version-bin:/mnt/c/Users/aravi/anaconda3:/mnt/c/Users/aravi/anaconda3/Library/mingw-w64/bin:/mnt/c/Users/aravi/anaconda3/Library/usr/bin:/mnt/c/Users/aravi/anaconda3/Library/bin:/mnt/c/Users/aravi/anaconda3/Scripts:/mnt/c/Program Files/MySQL/MySQL Shell 8.0/bin/:/mnt/c/Users/aravi/.windows-build-tools/python27/:/mnt/c/Users/aravi/AppData/Local/Microsoft/WindowsApps:/mnt/c/Program Files/JetBrains/PyCharm Community Edition 2020.3.1/bin:/mnt/c/Program Files/JetBrains/IntelliJ IDEA Community Edition 2020.3/bin:/mnt/d/flutter/bin:/mnt/c/Users/aravi/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Program Files/Java/jre1.8.0_271/bin:/mnt/c/Users/aravi/AppData/Local/GitHubDesktop/bin:/mnt/c/Users/aravi/AppData/Roaming/npm:/mnt/c/Users/aravi/AppData/Local/Programs/IPFS Desktop/resources/app.asar.unpacked/src/ipfs-on-path/scripts/bin-win:/mnt/d/iverilog/bin:/mnt/d/iverilog/gtkwave/bin:/mnt/c/Users/aravi/AppData/Local/Microsoft/WindowsApps:/mnt/d/php80:/home/aravind/.local/bin
+PATH = /home/aravind/.vscode-server/bin/da76f93349a72022ca4670c1b84860304616aaa2/bin/remote-cli:/home/aravind/.nvm/versions/node/v16.3.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Python27/:/mnt/c/Python27/Scripts:/mnt/c/Program Files (x86)/Common Files/Oracle/Java/javapath:/mnt/c/Program Files/Common Files/Oracle/Java/javapath:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:/mnt/c/Windows/System32/OpenSSH/:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/Git/cmd:/mnt/c/MinGW/bin:/mnt/c/Program Files/Geth:/mnt/c/ProgramData/chocolatey/bin:/mnt/d/nodejs/:/mnt/c/Program Files/MySQL/MySQL Server 8.0/bin:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files/gnuplot/bin:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/ProgramData/DockerDesktop/version-bin:/mnt/c/Users/aravi/anaconda3:/mnt/c/Users/aravi/anaconda3/Library/mingw-w64/bin:/mnt/c/Users/aravi/anaconda3/Library/usr/bin:/mnt/c/Users/aravi/anaconda3/Library/bin:/mnt/c/Users/aravi/anaconda3/Scripts:/mnt/c/Program Files/MySQL/MySQL Shell 8.0/bin/:/mnt/c/Users/aravi/.windows-build-tools/python27/:/mnt/c/Users/aravi/AppData/Local/Microsoft/WindowsApps:/mnt/c/Program Files/JetBrains/PyCharm Community Edition 2020.3.1/bin:/mnt/c/Program Files/JetBrains/IntelliJ IDEA Community Edition 2020.3/bin:/mnt/d/flutter/bin:/mnt/c/Users/aravi/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Program Files/Java/jre1.8.0_271/bin:/mnt/c/Users/aravi/AppData/Local/GitHubDesktop/bin:/mnt/c/Users/aravi/AppData/Roaming/npm:/mnt/c/Users/aravi/AppData/Local/Programs/IPFS Desktop/resources/app.asar.unpacked/src/ipfs-on-path/scripts/bin-win:/mnt/d/iverilog/bin:/mnt/d/iverilog/gtkwave/bin:/mnt/c/Users/aravi/AppData/Local/Microsoft/WindowsApps:/mnt/d/php80:/home/aravind/.local/bin
 # environment
 LSCOLORS = Gxfxcxdxbxegedabagacad
 # environment
@@ -55,7 +55,9 @@ NVM_BIN = /home/aravind/.nvm/versions/node/v16.3.0/bin
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-7515fbca-7122-491f-9827-e09f857e740e.sock
+VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-1f048fb6-9e08-4bff-9287-fe771948094a.sock
+# environment
+VSCODE_SERVER_TAR = /mnt/c/Users/aravi/AppData/Local/Temp/vscode-remote-wsl/da76f93349a72022ca4670c1b84860304616aaa2/vscode-server-stable-linux-x64.tar.gz
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -69,7 +71,7 @@ PWD = /home/aravind/src/projects/hackathon_backend
 # default
 .LOADED := 
 # environment
-WSL_INTEROP = /run/WSL/17437_interop
+WSL_INTEROP = /run/WSL/8_interop
 # environment
 PULSE_SERVER = /mnt/wslg/PulseServer
 # environment
@@ -159,7 +161,7 @@ TERM = xterm-256color
 # environment
 WSL_DISTRO_NAME = Ubuntu-20.04
 # variable set hash-table stats:
-# Load=73/1024=7%, Rehash=0, Collisions=4/98=4%
+# Load=74/1024=7%, Rehash=0, Collisions=4/99=4%
 
 # Pattern-specific Variable Values
 
@@ -167,9 +169,9 @@ WSL_DISTRO_NAME = Ubuntu-20.04
 
 # Directories
 
-# . (device 2080, inode 43447): 11 files, no impossibilities.
+# . (device 2080, inode 43447): 15 files, no impossibilities.
 
-# 11 files, no impossibilities in 1 directories.
+# 15 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -219,12 +221,12 @@ start_frontend:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 18 / storage = 167 B / avg = 9 B
-# current buf: size = 8162 B / used = 167 B / count = 18 / avg = 9 B
+# strcache buffers: 1 (0) / strings = 22 / storage = 213 B / avg = 9 B
+# current buf: size = 8162 B / used = 213 B / count = 22 / avg = 9 B
 
-# strcache performance: lookups = 24 / hit rate = 25%
+# strcache performance: lookups = 28 / hit rate = 21%
 # hash-table stats:
-# Load=18/8192=0%, Rehash=0, Collisions=1/24=4%
-# Finished Make data base on Thu Aug  4 22:11:55 2022
+# Load=22/8192=0%, Rehash=0, Collisions=1/28=4%
+# Finished Make data base on Fri Aug  5 23:20:50 2022
 
  

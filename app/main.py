@@ -62,8 +62,6 @@ async def authorize_mediavalet(code: Req):
 
     result = response.json()
     print(result)
-    auth_token = result["access_token"]
-    print(auth_token)
 
     return result
 
