@@ -16,7 +16,7 @@ export function Home() {
         .post("http://localhost:3001/api/authorize")
         .send({ code: code })
         .then((res) => {
-          alert("yay got " + JSON.stringify(res.body));
+          console.log("yay got " + JSON.stringify(res.body));
         });
     }
   }, []);

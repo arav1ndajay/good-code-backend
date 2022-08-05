@@ -44,14 +44,6 @@ class Req(BaseModel):
     code: str
 
 
-# sample_response = {
-#   "id_token":"ID_TOKEN_VALUE",
-#   "access_token":"ACCESS_TOKEN_VALUE",
-#   "expires_in":3600,
-#   "token_type":"Bearer"
-# }
-
-
 @app.post("/api/authorize")
 async def authorize_mediavalet(code: Req):
 
@@ -61,8 +53,8 @@ async def authorize_mediavalet(code: Req):
         url,
         data={
             "grant_type": "authorization_code",
-            "code": code,
-            "redirect_uri": settings.backend_url,
+            "code": code.code,
+            "redirect_uri": settings.frontend_url,
             "client_id": settings.client_id,
             "client_secret": settings.client_secret,
         },
