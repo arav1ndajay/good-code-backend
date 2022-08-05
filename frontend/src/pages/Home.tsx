@@ -1,30 +1,25 @@
-import {
-  Box,
-  Button,
-  Dialog,
-  Text,
-  Spinner,
-} from "@primer/react";
+import { Box, Button, Dialog, Text, Spinner } from "@primer/react";
 import { useState, useEffect } from "react";
 import Logo from "../../public/logo.png";
 import { useParams, useSearchParams } from "react-router-dom";
-import request from "superagent"
+import request from "superagent";
 
 export function Home() {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
-  
-  useEffect(()=>{
-    const code = searchParams.get("code")
-    if (code != null){
-      request.post("http://localhost:3001")
-      .send({code: code})
-      .then(res => {
-        alert('yay got ' + JSON.stringify(res.body));
-      })
-    }
 
-  },[])
+  useEffect(() => {
+    const code = searchParams.get("code");
+
+    if (code != null) {
+      request
+        .post("http://localhost:3001/api/authorize")
+        .send({ code: code })
+        .then((res) => {
+          alert("yay got " + JSON.stringify(res.body));
+        });
+    }
+  }, []);
 
   return (
     <Box minHeight={"100vh"} display="flex" flexDirection={"column"}>
