@@ -1,16 +1,14 @@
-from fastapi import Depends, FastAPI
-from fastapi.responses import RedirectResponse
+from fastapi import FastAPI, Header, status
+from fastapi.exceptions import HTTPException
 from pydantic import BaseModel
 from .config import settings
 import requests
-from sqlalchemy.orm import Session
-from . import models
-from .database import SessionLocal, engine
+# from sqlalchemy.orm import Session
+# from . import models
+# from .database import SessionLocal, engine
 from starlette.middleware.cors import CORSMiddleware
 
-import jwt
-
-models.Base.metadata.create_all(bind=engine)
+# models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
@@ -31,12 +29,12 @@ app.add_middleware(
 
 
 # Dependency
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+# def get_db():
+#     db = SessionLocal()
+#     try:
+#         yield db
+#     finally:
+#         db.close()
 
 
 # print(settings.client_id)
@@ -59,36 +57,37 @@ async def authorize_mediavalet(code: Req):
             "client_secret": settings.client_secret,
         },
         headers={'Content-Type': 'application/x-www-form-urlencoded'})
-
+    
     result = response.json()
     print(result)
 
     return result
 
 
-@app.get("/folders")
-async def get_folders():
-    url = "https://api.mediavalet.com/folders"
+@app.get("/categories")
+async def get_categories(access_token: str = Header(default=None)):
+    url = "https://api.mediavalet.com/categories"
 
-    try:
-        f = open("media_token.txt", "r")
-        auth_token = f.read()
-        f.close()
-    except FileNotFoundError:
-        return {"error": "Auth token not found"}
-
+ 
     response = requests.get(url,
                             headers={
                                 'Content-Type':
                                 'application/x-www-form-urlencoded',
                                 "Ocp-Apim-Subscription-Key":
                                 settings.primary_key,
-                                "Authorization": "Bearer " + auth_token,
+                                "Authorization": "Bearer " + access_token,
                             })
+    
     result = response.json()
-    print(result)
+    categories = []
+    for res in result["payload"]:
+        category = {
+            "id": res["id"],
+            "name": res["tree"]["name"]
+        }
+        categories.append(category)
 
-    return result
+    return categories
 
 
 @app.get("/user")
