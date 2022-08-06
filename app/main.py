@@ -1,5 +1,7 @@
-from fastapi import FastAPI, Header, status
+from os import access
+from fastapi import FastAPI, Header, status, Request
 from fastapi.exceptions import HTTPException
+from fastapi.security import OAuth2PasswordBearer
 from pydantic import BaseModel
 from .config import settings
 import requests
@@ -65,10 +67,15 @@ async def authorize_mediavalet(code: Req):
 
 
 @app.get("/categories")
-async def get_categories(access_token: str = Header(default=None)):
+async def get_categories(req: Request):
     url = "https://api.mediavalet.com/categories"
 
- 
+    header = req.headers["Authorization"].split()
+    access_token = ""
+    if header[0] == "Bearer":
+        access_token = header[1]
+    else:
+        raise HTTPException(status_code=401, detail="Unauthorized")
     response = requests.get(url,
                             headers={
                                 'Content-Type':
