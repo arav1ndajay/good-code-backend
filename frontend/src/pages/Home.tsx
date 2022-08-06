@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Logo from "../../public/logo.png";
 import { useParams, useSearchParams } from "react-router-dom";
 import request from "superagent";
+import Account from "../components/Account";
 
 export function Home() {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
@@ -10,14 +11,16 @@ export function Home() {
 
   useEffect(() => {
     const code = searchParams.get("code");
-    const access_token = window.localStorage.getItem("access-token")
+    const access_token = window.localStorage.getItem("access-token");
     if (code != null && access_token == null) {
       request
         .post("http://localhost:3001/api/authorize")
         .send({ code: code })
         .then((res) => {
           console.log("yay got " + JSON.stringify(res.body));
-          window.localStorage.setItem("access-token", res.body["access_token"])
+          if (res.body.access_token !== undefined) {
+            localStorage.setItem("access-token", res.body["access_token"]);
+          }
         });
     }
   }, []);
@@ -27,7 +30,7 @@ export function Home() {
       <Box position={"sticky"} top={0} zIndex={1}>
         <Box
           padding={15}
-          backgroundColor="canvas.default"
+          backgroundColor={"neutral.muted"}
           height={40}
           display="flex"
           justifyContent={"space-between"}
@@ -44,8 +47,11 @@ export function Home() {
               }}
             />
           </Box>
-          <Box>
-            
+          <Box sx={{
+			display: "flex",
+			alignItems: "center",
+		  }}>
+            <Account />
           </Box>
         </Box>
       </Box>
