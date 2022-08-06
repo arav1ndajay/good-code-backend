@@ -8,15 +8,20 @@ import Account from "../components/Account";
 export function Home() {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
+  let done = false;
 
   useEffect(() => {
     const code = searchParams.get("code");
+
     const access_token = window.localStorage.getItem("access-token");
     if (code != null && access_token == null) {
+      console.log("Sending request!");
+
       request
         .post("http://localhost:3001/api/authorize")
         .send({ code: code })
         .then((res) => {
+          done = true;
           console.log("yay got " + JSON.stringify(res.body));
           if (res.body.access_token !== undefined) {
             localStorage.setItem("access-token", res.body["access_token"]);
@@ -47,10 +52,12 @@ export function Home() {
               }}
             />
           </Box>
-          <Box sx={{
-			display: "flex",
-			alignItems: "center",
-		  }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
             <Account />
           </Box>
         </Box>

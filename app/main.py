@@ -14,12 +14,10 @@ from starlette.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-# origins = [
-#     "http://localhost",
-#     "http://localhost:3000",
-# ]
-
-origins = ['*']
+origins = [
+    "http://localhost",
+    "http://localhost:3000",
+]
 
 app.add_middleware(
     CORSMiddleware,
@@ -39,7 +37,6 @@ app.add_middleware(
 #         db.close()
 
 
-# print(settings.client_id)
 class Req(BaseModel):
     code: str
 
@@ -120,29 +117,3 @@ async def get_user():
     print(result["payload"]["id"])
 
     return result
-
-
-# @app.post("/")
-# async def authorize_mediavalet(code: str, db: Session = Depends(get_db)):
-#     # url2 = "https://api.mediavalet.com/users/current"
-#     # response2 = requests.get(url2, headers={
-#     #     'Content-Type': 'application/x-www-form-urlencoded',
-#     #     "Ocp-Apim-Subscription-Key": settings.primary_key,
-#     #     "Authorization": "Bearer " + auth_token,
-#     # })
-#     # result2 = response2.json()
-#     # id = result2["payload"]["id"]
-
-#     # db_user = models.User(id=id, auth_token=auth_token)
-#     # user = db.get(models.User, id)
-#     # if not user:
-#     #     db.add(db_user)
-#     #     db.commit()
-#     #     db.refresh(db_user)
-#     # else:
-#     #     setattr(user, "auth_token", auth_token)
-#     #     db.commit()
-#     #     db.refresh(user)
-
-#     # encoded_jwt = jwt.encode({"id": id}, "secret", algorithm="HS256")
-#     # return RedirectResponse(settings.frontend_url + "/redirect/" + encoded_jwt.decode("UTF-8"))
