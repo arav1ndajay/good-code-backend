@@ -1,7 +1,7 @@
 import { Button, Spinner, Text } from "@primer/react";
 import { useQuery } from "@tanstack/react-query";
 import request from "superagent";
-import { Get, NotLoggedInError } from "../api/Api";
+import { Get, NotLoggedInError } from "../../../api/Api";
 
 export default function Account() {
   const { isLoading, data, isError, error } = useQuery(["username"], () =>
