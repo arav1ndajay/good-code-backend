@@ -1,41 +1,37 @@
-import { Box, Button, Dialog, Text, Spinner } from "@primer/react";
+import {
+  Box,
+  Button,
+  Dialog,
+  Text,
+  Spinner,
+} from "@primer/react";
 import { useState, useEffect } from "react";
 import Logo from "../../public/logo.png";
 import { useParams, useSearchParams } from "react-router-dom";
-import request from "superagent";
-import Account from "../components/Account";
+import request from "superagent"
 
 export function Home() {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
-  let done = false;
-
-  useEffect(() => {
-    const code = searchParams.get("code");
-
-    const access_token = window.localStorage.getItem("access-token");
-    if (code != null && access_token == null) {
-      console.log("Sending request!");
-
-      request
-        .post("http://localhost:3001/api/authorize")
-        .send({ code: code })
-        .then((res) => {
-          done = true;
-          console.log("yay got " + JSON.stringify(res.body));
-          if (res.body.access_token !== undefined) {
-            localStorage.setItem("access-token", res.body["access_token"]);
-          }
-        });
+  
+  useEffect(()=>{
+    const code = searchParams.get("code")
+    if (code != null){
+      request.post("http://localhost:3001")
+      .send({code: code})
+      .then(res => {
+        alert('yay got ' + JSON.stringify(res.body));
+      })
     }
-  }, []);
+
+  },[])
 
   return (
     <Box minHeight={"100vh"} display="flex" flexDirection={"column"}>
       <Box position={"sticky"} top={0} zIndex={1}>
         <Box
           padding={15}
-          backgroundColor={"neutral.muted"}
+          backgroundColor="canvas.default"
           height={40}
           display="flex"
           justifyContent={"space-between"}
@@ -52,13 +48,19 @@ export function Home() {
               }}
             />
           </Box>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <Account />
+          <Box>
+            <Button
+              variant="primary"
+              onClick={() => {
+                setIsLoggingIn(true);
+                window.open(
+                  "https://login.mediavalet.com/connect/authorize?client_id=7f495f1f-21dc-4f9b-9071-4b56e5375e9f&response_type=code&scope=openid%20api&redirect_uri=http://localhost:3000&state=state-296bc9a0",
+                  "_blank"
+                );
+              }}
+            >
+              Login
+            </Button>
           </Box>
         </Box>
       </Box>
