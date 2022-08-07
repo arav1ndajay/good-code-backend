@@ -1,9 +1,11 @@
-import { Box, Button, Dialog, Text, Spinner } from "@primer/react";
+import { Box, Button, Dialog, Text, Spinner, Header } from "@primer/react";
 import { useState, useEffect } from "react";
 import Logo from "../../public/logo.png";
-import { useParams, useSearchParams } from "react-router-dom";
+import { Outlet, useParams, useSearchParams } from "react-router-dom";
 import request from "superagent";
-import Account from "../components/Account";
+import Account from "./components/Account";
+import { Get } from "../../api/Api";
+import { useQuery } from "@tanstack/react-query";
 
 export function Home() {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
@@ -25,16 +27,14 @@ export function Home() {
     }
   }, []);
 
+  const { data, isLoading, isError, error } = useQuery(["folders"], () =>
+    Get("http://localhost:3001/categories")
+  );
+
   return (
     <Box minHeight={"100vh"} display="flex" flexDirection={"column"}>
-      <Box position={"sticky"} top={0} zIndex={1}>
-        <Box
-          padding={15}
-          backgroundColor={"neutral.muted"}
-          height={40}
-          display="flex"
-          justifyContent={"space-between"}
-        >
+      <Header>
+        <Header.Item full>
           <Box
             sx={{
               objectFit: "contain",
@@ -47,21 +47,27 @@ export function Home() {
               }}
             />
           </Box>
-          <Box sx={{
-			display: "flex",
-			alignItems: "center",
-		  }}>
-            <Account />
-          </Box>
+        </Header.Item>
+        <Header.Item>
+          <Account />
+        </Header.Item>
+      </Header>
+      {data && (
+        <Box display="grid" gridTemplateColumns="1fr 1fr" gridGap={3}>
+          {data?.body.map((folder: { name: string }) => {
+            return (
+              <Box
+                p={3}
+                borderColor="border.default"
+                borderWidth={1}
+                borderStyle="solid"
+              >
+                <Text>{folder.name}</Text>
+              </Box>
+            );
+          })}
         </Box>
-      </Box>
-      <Dialog
-        isOpen={isLoggingIn}
-        onDismiss={() => setIsLoggingIn(false)}
-        aria-labelledby="header-id"
-      >
-        <Dialog.Header id="header-id">Title</Dialog.Header>
-      </Dialog>
+      )}
     </Box>
   );
 }
