@@ -32,7 +32,7 @@ export function Home() {
   );
 
   return (
-    <Box minHeight={"100vh"} display="flex" flexDirection={"column"}>
+    <Box minHeight={"100vh"} display="flex" flexDirection={"column"} backgroundColor="canvas.default">
       <Header>
         <Header.Item full>
           <Box
@@ -58,7 +58,7 @@ export function Home() {
             return (
               <Box
                 p={3}
-                borderColor="border.default"
+                borderColor="border.muted"
                 borderWidth={1}
                 borderStyle="solid"
               >
