@@ -87,3 +87,4 @@ watchfiles==0.16.1
 websockets==10.3
 zipp==1.0.0
 zope.interface==4.7.1
+arcgis

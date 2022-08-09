@@ -9,6 +9,7 @@ import requests
 # from . import models
 # from .database import SessionLocal, engine
 from starlette.middleware.cors import CORSMiddleware
+from .survey123 import survey
 
 # models.Base.metadata.create_all(bind=engine)
 
@@ -26,7 +27,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 # Dependency
 # def get_db():
@@ -56,11 +56,12 @@ async def authorize_mediavalet(code: Req):
             "client_secret": settings.client_secret,
         },
         headers={'Content-Type': 'application/x-www-form-urlencoded'})
-    
+
     result = response.json()
     print(result)
 
     return result
+
 
 @app.post("/api/authorizerefresh")
 async def authorize_mediavalet(rtoken: str):
@@ -76,7 +77,7 @@ async def authorize_mediavalet(rtoken: str):
             "client_secret": settings.client_secret,
         },
         headers={'Content-Type': 'application/x-www-form-urlencoded'})
-    
+
     result = response.json()
     print(result)
 
@@ -101,12 +102,13 @@ async def get_categories(req: Request):
                                 settings.primary_key,
                                 "Authorization": "Bearer " + access_token,
                             })
-    
+
     result = response.json()
     categories = []
     for res in result["payload"]:
         cat_name = str(res["tree"]["name"]).split("_", maxsplit=1)
-        if res["assetCount"] > 0 and res["subcats"]["total"] == 0 and res["tree"]["name"].count("_") == 3:
+        if res["assetCount"] > 0 and res["subcats"]["total"] == 0 and res[
+                "tree"]["name"].count("_") == 3:
             category = {
                 "id": res["id"],
                 "name": cat_name[0],
@@ -115,6 +117,7 @@ async def get_categories(req: Request):
             categories.append(category)
 
     return categories
+
 
 @app.get("/categories/{category_id}")
 async def get_assets_in_category(category_id: str, req: Request):
@@ -139,15 +142,13 @@ async def get_assets_in_category(category_id: str, req: Request):
     assets = []
     for res in result["payload"]["assets"]:
         if category_id in res["categories"]:
-            asset = {
-                "id": res["id"],
-                "link": res["media"]["small"]
-            }
+            asset = {"id": res["id"], "link": res["media"]["small"]}
             assets.append(asset)
 
     print(assets)
 
     return assets
+
 
 @app.get("/user")
 async def get_user():
@@ -174,3 +175,7 @@ async def get_user():
     return result
 
 
+@app.get("/survey123/")
+async def get_survey123(camera_id: str, date: str):
+
+    return survey.get_info(camera_id=camera_id, date=date)
