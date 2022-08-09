@@ -1,12 +1,41 @@
-import { Box, Button, NavList } from "@primer/react";
+import { Box, Button, Header, NavList } from "@primer/react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Category } from "./pages/Category";
 import { Home } from "./pages/Home";
+import Account from "./pages/Home/components/Account";
 export default function App() {
   return (
-    <BrowserRouter>
-		<Routes>
-			<Route index element={<Home />} />
-		</Routes>
-	</BrowserRouter>
+    <Box
+      minHeight={"100vh"}
+      display="flex"
+      flexDirection={"column"}
+      backgroundColor="canvas.default"
+    >
+      <Header>
+        <Header.Item full>
+          <Box
+            sx={{
+              objectFit: "contain",
+            }}
+          >
+            <img
+              src="/logo.png"
+              style={{
+                maxHeight: "40px",
+              }}
+            />
+          </Box>
+        </Header.Item>
+        <Header.Item>
+          <Account />
+        </Header.Item>
+      </Header>
+      <BrowserRouter>
+        <Routes>
+          <Route index element={<Home />} />
+          <Route path="/:categoryId" element={<Category />} />
+        </Routes>
+      </BrowserRouter>
+    </Box>
   );
 }

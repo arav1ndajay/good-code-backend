@@ -1,4 +1,14 @@
-import { Box, Button, Dialog, Text, Spinner, Header } from "@primer/react";
+import {
+  Box,
+  Button,
+  Dialog,
+  Text,
+  Spinner,
+  Header,
+  Link,
+  StyledOcticon,
+  Heading,
+} from "@primer/react";
 import { useState, useEffect } from "react";
 import Logo from "../../public/logo.png";
 import { Outlet, useParams, useSearchParams } from "react-router-dom";
@@ -6,6 +16,13 @@ import request from "superagent";
 import Account from "./components/Account";
 import { Get } from "../../api/Api";
 import { useQuery } from "@tanstack/react-query";
+import {
+  DeviceCameraIcon,
+  FileDirectoryFillIcon,
+  FileDirectoryIcon,
+  KeyIcon,
+} from "@primer/octicons-react";
+import { Link as RouteLink } from "react-router-dom";
 
 export function Home() {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
@@ -22,6 +39,7 @@ export function Home() {
           console.log("yay got " + JSON.stringify(res.body));
           if (res.body.access_token !== undefined) {
             localStorage.setItem("access-token", res.body["access_token"]);
+            localStorage.setItem("refresh-token", res.body["refresh_token"]);
           }
         });
     }
@@ -32,42 +50,77 @@ export function Home() {
   );
 
   return (
-    <Box minHeight={"100vh"} display="flex" flexDirection={"column"} backgroundColor="canvas.default">
-      <Header>
-        <Header.Item full>
-          <Box
+    <>
+      <Box p={5} display={"flex"} flexDirection="column" alignItems={"center"}>
+        {isLoading && (
+          <Spinner
             sx={{
-              objectFit: "contain",
+              color: "fg.default",
             }}
-          >
-            <img
-              src="/logo.png"
-              style={{
-                maxHeight: "40px",
-              }}
-            />
-          </Box>
-        </Header.Item>
-        <Header.Item>
-          <Account />
-        </Header.Item>
-      </Header>
-      {data && (
-        <Box display="grid" gridTemplateColumns="1fr 1fr" gridGap={3}>
-          {data?.body.map((folder: { name: string }) => {
-            return (
-              <Box
-                p={3}
-                borderColor="border.muted"
-                borderWidth={1}
-                borderStyle="solid"
+          />
+        )}
+        {isError && <Text>Error</Text>}
+        {data && (
+          <>
+            <Box display={"flex"} flexDirection="column">
+              <Heading
+                as={"h1"}
+                sx={{
+                  color: "fg.default",
+                  mb: 5,
+                }}
               >
-                <Text>{folder.name}</Text>
-              </Box>
-            );
-          })}
-        </Box>
-      )}
-    </Box>
+                Please select a camera trap to view its details
+              </Heading>
+            </Box>
+
+            <Box display="grid" gridTemplateColumns="1fr 1fr 1fr" gridGap={3}>
+              {data?.body.map(
+                (folder: { name: string; date: string; id: string }) => {
+                  return (
+                    <Box
+                      p={3}
+                      borderColor="border.muted"
+                      borderWidth={1}
+                      borderStyle="solid"
+                      backgroundColor={"neutral.subtle"}
+                      borderRadius={6}
+                      display="flex"
+                      alignItems="center"
+                    >
+                      <StyledOcticon
+                        icon={DeviceCameraIcon}
+                        color="fg.default"
+                        sx={{
+                          mr: 3,
+                        }}
+                      />
+                      <Box display={"flex"} flexDirection="column">
+                        <Link
+                          as={RouteLink}
+                          to={"/" + folder.id}
+                          color={"fg.default"}
+                        >
+                          {folder.name}
+                        </Link>
+                        <Text
+                          sx={{
+                            color: "fg.subtle",
+                            fontSize: "0.7rem",
+                            mt: 1,
+                          }}
+                        >
+                          {folder.date}
+                        </Text>
+                      </Box>
+                    </Box>
+                  );
+                }
+              )}
+            </Box>
+          </>
+        )}
+      </Box>
+    </>
   );
 }

@@ -125,3 +125,4 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+app/__pycache__/main.cpython-39.pyc

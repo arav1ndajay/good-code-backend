@@ -141,7 +141,7 @@ async def get_assets_in_category(category_id: str, req: Request):
         if category_id in res["categories"]:
             asset = {
                 "id": res["id"],
-                "link": res["media"]["original"]
+                "link": res["media"]["small"]
             }
             assets.append(asset)
 
