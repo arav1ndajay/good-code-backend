@@ -62,6 +62,26 @@ async def authorize_mediavalet(code: Req):
 
     return result
 
+@app.post("/api/authorizerefresh")
+async def authorize_mediavalet(rtoken: str):
+
+    url = "https://login.mediavalet.com/connect/token"
+
+    response = requests.post(
+        url,
+        data={
+            "grant_type": "refresh_token",
+            "refresh_token": rtoken,
+            "client_id": settings.client_id,
+            "client_secret": settings.client_secret,
+        },
+        headers={'Content-Type': 'application/x-www-form-urlencoded'})
+    
+    result = response.json()
+    print(result)
+
+    return result
+
 
 @app.get("/categories")
 async def get_categories(req: Request):
@@ -85,10 +105,12 @@ async def get_categories(req: Request):
     result = response.json()
     categories = []
     for res in result["payload"]:
-        if res["assetCount"] > 0 and res["subcats"]["total"] == 0:
+        cat_name = str(res["tree"]["name"]).split("_", maxsplit=1)
+        if res["assetCount"] > 0 and res["subcats"]["total"] == 0 and res["tree"]["name"].count("_") == 3:
             category = {
                 "id": res["id"],
-                "name": res["tree"]["name"]
+                "name": cat_name[0],
+                "date": cat_name[1]
             }
             categories.append(category)
 
