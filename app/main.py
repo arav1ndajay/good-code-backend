@@ -142,7 +142,7 @@ async def get_assets_in_category(category_id: str, req: Request):
     assets = []
     for res in result["payload"]["assets"]:
         if category_id in res["categories"]:
-            asset = {"id": res["id"], "link": res["media"]["small"]}
+            asset = {"id": res["id"], "link": res["media"]["medium"]}
             assets.append(asset)
 
     print(assets)

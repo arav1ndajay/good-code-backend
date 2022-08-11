@@ -10,6 +10,8 @@ export default function App() {
       display="flex"
       flexDirection={"column"}
       backgroundColor="canvas.default"
+	  position="relative"
+	  overflowX="hidden"
     >
       <Header>
         <Header.Item full>
@@ -30,6 +32,7 @@ export default function App() {
           <Account />
         </Header.Item>
       </Header>
+
       <BrowserRouter>
         <Routes>
           <Route index element={<Home />} />
