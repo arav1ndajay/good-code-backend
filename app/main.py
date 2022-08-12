@@ -10,8 +10,9 @@ import requests
 # from .database import SessionLocal, engine
 from starlette.middleware.cors import CORSMiddleware
 from .survey123 import survey
-
+import base64
 # models.Base.metadata.create_all(bind=engine)
+import json
 
 app = FastAPI()
 
@@ -175,7 +176,50 @@ async def get_user():
     return result
 
 
-@app.post("/survey123/")
-async def get_survey123(req: Request):
-	body = await req.json()
-	return survey.get_info(camera_id=body["camera_id"], date=body["date"])
+@app.get("/survey123/")
+async def get_survey123(camera_id: str, date: str):
+
+    return survey.get_info(camera_id=camera_id, date=date)
+
+
+@app.get("/docusign/authorize")
+async def authorize_mediavalet(code: str):
+
+    integrator_and_secret_key = b"Basic " + base64.b64encode(
+        str.encode("{}:{}".format(settings.docusign_client_id,
+                                  settings.docusign_client_secret)))
+
+    access_token_request_url = "https://account-d.docusign.com/oauth/token"
+
+    access_token_response = requests.post(
+        access_token_request_url,
+        headers={
+            "Authorization": integrator_and_secret_key.decode("utf-8"),
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        data={
+            "grant_type": "authorization_code",
+            "code": code
+        })
+
+    access_token_result = access_token_response.json()
+    base_uri_request_url = "https://account-d.docusign.com/oauth/userinfo"
+
+    base_uri_response = requests.get(base_uri_request_url,
+                                     headers={
+                                         "Authorization":
+                                         "Bearer " +
+                                         access_token_result['access_token']
+                                     })
+
+    base_uri_result = base_uri_response.json()
+    response = {
+        'access_token': access_token_result['access_token'],
+        'base_uri': base_uri_result['accounts'][0]['base_uri'],
+        'account_id': base_uri_result['accounts'][0]['account_id']
+    }
+
+    with open('convert.txt', 'w') as convert_file:
+        convert_file.write(json.dumps(response))
+
+    return response
