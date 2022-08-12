@@ -6,7 +6,6 @@ import {
   useOnOutsideClick,
 } from "@primer/react";
 import { useQuery } from "@tanstack/react-query";
-import { Masonry } from "masonic";
 import { useCallback, useRef, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import { Get, Post } from "../../api/Api";
@@ -17,7 +16,7 @@ import { Question } from "./components/question";
 export function Category() {
   const params = useParams();
   const { data, isError, isLoading } = useQuery(["folders"], () =>
-    Get(`http://localhost:3001/categories/${params.categoryId}`)
+    Get(`https://api.hackathonjgi.software/categories/${params.categoryId}`)
   );
   const [open, setOpen] = useState(false);
   const [searchParams] = useSearchParams();
@@ -34,7 +33,7 @@ export function Category() {
         camera_id: "Camera1",
         date: searchParams.get("date"),
       },
-      "http://localhost:3001/survey123"
+      "https://api.hackathonjgi.software/survey123"
     )
   );
 

@@ -33,7 +33,7 @@ export function Home() {
     const access_token = window.localStorage.getItem("access-token");
     if (code != null && access_token == null) {
       request
-        .post("http://localhost:3001/api/authorize")
+        .post("https://api.hackathonjgi.software/api/authorize")
         .send({ code: code })
         .then((res) => {
           console.log("yay got " + JSON.stringify(res.body));
@@ -46,7 +46,7 @@ export function Home() {
   }, []);
 
   const { data, isLoading, isError, error } = useQuery(["folders"], () =>
-    Get("http://localhost:3001/categories")
+    Get("https://api.hackathonjgi.software/categories")
   );
 
   return (
