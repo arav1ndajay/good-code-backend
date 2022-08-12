@@ -31,7 +31,7 @@ export function Category() {
   } = useQuery(["details"], () =>
     Post(
       {
-        camera_id: searchParams.get("camera_id"),
+        camera_id: searchParams.get("camera_id")!.toLowerCase().charAt(0).toUpperCase() + searchParams.get("camera_id")!.toLowerCase().slice(1),
         date: searchParams.get("date"),
       },
       "https://api.hackathonjgi.software/survey123"
