@@ -5,14 +5,11 @@ from fastapi.security import OAuth2PasswordBearer
 from pydantic import BaseModel
 from .config import settings
 import requests
-# from sqlalchemy.orm import Session
-# from . import models
-# from .database import SessionLocal, engine
 from starlette.middleware.cors import CORSMiddleware
 from .survey123 import survey
 import base64
-# models.Base.metadata.create_all(bind=engine)
 import json
+from docusign import embeded_sender
 
 app = FastAPI()
 
@@ -339,14 +336,27 @@ async def authorize_mediavalet(code: str):
         'account_id': base_uri_result['accounts'][0]['account_id']
     }
 
-    with open('convert.txt', 'w') as convert_file:
-        convert_file.write(json.dumps(response))
+    # with open('convert.txt', 'w') as convert_file:
+    #     convert_file.write(json.dumps(response))
 
     return response
 
 
 @app.post("/docusign/notify")
 async def docusign_notify(req: Request):
-    vari = await req.json()
-    print(vari)
-    return
+    args = {
+        'envelope_args': {
+            'status': 'create'
+        },
+        'starting_view': 'recipient'
+    }
+
+    details = await req.json()
+    args['account_id'] = details['account_id']
+    args['ds_return_url'] = details['ds_return_url']
+    args['access_token'] = details['access_token']
+    args['base_path'] = details['base_uri']
+
+    result = embeded_sender.EmbeddedSender.worker(args, details['assets'])
+
+    return result
