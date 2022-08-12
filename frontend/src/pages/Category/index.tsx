@@ -129,7 +129,7 @@ export function Category() {
               onClick={() => {
                 localStorage.setItem("temp", params.categoryId!);
                 window.location.href =
-                  "https://account-d.docusign.com/oauth/auth?response_type=code&scope=extended signature openid&client_id=8c2ddbb1-020e-4f88-831d-e39ba9e364a8&state=BZAPTVUNU9&redirect_uri=http://localhost:3000/docusign";
+                  "https://account-d.docusign.com/oauth/auth?response_type=code&scope=extended signature openid&client_id=8c2ddbb1-020e-4f88-831d-e39ba9e364a8&state=BZAPTVUNU9&redirect_uri=https://hackathonjgi.software/docusign";
               }}
             >
               Start Mapping

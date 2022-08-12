@@ -55,7 +55,7 @@ export function Docusign() {
                 account_id: localStorage.getItem("account_id"),
                 access_token: localStorage.getItem("docusign-token"),
                 base_uri: localStorage.getItem("base_uri") + "/restapi",
-                ds_return_url: "http://localhost:3000",
+                ds_return_url: "https://hackathonjgi.software",
               });
             window.location.href = res.body["redirect_url"];
           }}
