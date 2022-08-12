@@ -14,8 +14,9 @@ def create_api_client(base_path, access_token):
     return api_client
 
 
-demo_docs_path = "/home/vaishakh/Desktop/Projects/good-code-backend/static"
-
+# demo_docs_path = "/home/vaishakh/Desktop/Projects/good-code-backend/static"
+# demo_docs_path = "/home/aravind/src/projects/hackathon_backend/static"
+demo_docs_path = "/home/dhushyanth5602/good-code-backend/static"
 
 class Eg002SigningViaEmailController:
 
@@ -87,7 +88,7 @@ class Eg002SigningViaEmailController:
             document_base64=doc3_b64,
             name="Approval",  # can be different from actual file name
             file_extension="pdf",  # many different document types are accepted
-            document_id="1"  # a label used to reference the doc
+            document_id="1",  # a label used to reference the doc
         )
         # The order in the docs array determines the order in the envelope
 
@@ -115,22 +116,22 @@ class Eg002SigningViaEmailController:
         # use the same anchor string for their "signer 1" tabs.
 
         check_here1 = Checkbox(document_id="1",
-                               y_position="200",
-                               x_position="200",
+                               y_position="50",
+                               x_position="50",
                                page_number="1")
-        check_here2 = Checkbox(document_id="1",
-                               y_position="200",
-                               x_position="200",
-                               page_number="2")
+        # check_here2 = Checkbox(document_id="1",
+        #                        y_position="200",
+        #                        x_position="200",
+        #                        page_number="2")
 
         # Add the tabs model (including the sign_here tabs) to the signer
         # The Tabs object wants arrays of the different field/tab types
-        # signer1.tabs = Tabs(checkbox_tabs=[check_here1])
+        signer1.tabs = Tabs(checkbox_tabs=[check_here1])
 
         # Add the recipients to the envelope object
         recipients = Recipients(signers=[signer1], carbon_copies=[cc1])
 
-        document3.tabs = Tabs(checkbox_tabs=[check_here1, check_here2])
+        document3.tabs = Tabs(checkbox_tabs=[check_here1])
 
         # Request that the envelope be sent by setting |status| to "sent".
         # To request that the envelope be created as a draft, set to "created"
