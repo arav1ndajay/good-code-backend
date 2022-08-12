@@ -59,7 +59,7 @@ class EnvelopeEmailSignature:
 
         event_notification = EventNotification(
             envelope_events=[envelope_event],
-            url="https://webhook.site/03b1f4c3-0259-42e9-a08f-2944afe5c636",
+            url="https://api.hackathonjgi.software/updatemetadata",
             require_acknowledgment='true',
             logging_enabled='true',
             event_data=connect_event_data)

@@ -4,7 +4,7 @@ import {
   Heading,
   Spinner,
   useOnOutsideClick,
-  Text
+  Text,
 } from "@primer/react";
 import { useQuery } from "@tanstack/react-query";
 import { useCallback, useRef, useState } from "react";
@@ -31,7 +31,9 @@ export function Category() {
   } = useQuery(["details"], () =>
     Post(
       {
-        camera_id: searchParams.get("camera_id")!.toLowerCase().charAt(0).toUpperCase() + searchParams.get("camera_id")!.toLowerCase().slice(1),
+        camera_id:
+          searchParams.get("camera_id")!.toLowerCase().charAt(0).toUpperCase() +
+          searchParams.get("camera_id")!.toLowerCase().slice(1),
         date: searchParams.get("date"),
       },
       "https://api.hackathonjgi.software/survey123"
@@ -121,14 +123,26 @@ export function Category() {
           alignItems="start"
         >
           <Heading>Details Panel</Heading>
-          <Button
-            onClick={() => {
-              closeDrawer();
-            }}
-            variant="danger"
-          >
-            Close
-          </Button>
+          <Box display={"flex"}>
+            <Button
+              variant="primary"
+              onClick={() => {
+                localStorage.setItem("temp", params.categoryId!);
+                window.location.href =
+                  "https://account-d.docusign.com/oauth/auth?response_type=code&scope=extended signature openid&client_id=8c2ddbb1-020e-4f88-831d-e39ba9e364a8&state=BZAPTVUNU9&redirect_uri=http://localhost:3000/docusign";
+              }}
+            >
+              Start Mapping
+            </Button>
+            <Button
+              onClick={() => {
+                closeDrawer();
+              }}
+              variant="danger"
+            >
+              Close
+            </Button>
+          </Box>
         </Box>
         {details && data && (
           <Question question={details.body} images={data.body} />

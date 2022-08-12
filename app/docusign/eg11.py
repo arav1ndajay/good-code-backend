@@ -80,21 +80,3 @@ class Eg011EmbeddedSendingController:
         print({"envelope_id": envelope_id, "redirect_url": url})
         return {"envelope_id": envelope_id, "redirect_url": url}
 
-
-trial_args = {
-    'envelope_args': {
-        'signer_name': 'Vaishakh',
-        'signer_email': 'vaishakhsm@gmail.com',
-        'cc_email': 'aravindajay11@gmail.com',
-        'cc_name': 'Aravind',
-        'status': 'create'
-    },
-    'account_id': 'e9cd3611-83ec-4bd7-b8d2-d058f1cb31e4',
-    'base_path': 'https://demo.docusign.net/restapi',
-    'access_token':
-    'eyJ0eXAiOiJNVCIsImFsZyI6IlJTMjU2Iiwia2lkIjoiNjgxODVmZjEtNGU1MS00Y2U5LWFmMWMtNjg5ODEyMjAzMzE3In0.AQsAAAABAAUABwCAEn1QbXzaSAgAgFKgXrB82kgCAKFmpqoRQWJAgHpy19xltb0VAAEAAAAYAAIAAAAKAAAABQAAAA0AJAAAADhjMmRkYmIxLTAyMGUtNGY4OC04MzFkLWUzOWJhOWUzNjRhOCIAJAAAADhjMmRkYmIxLTAyMGUtNGY4OC04MzFkLWUzOWJhOWUzNjRhOBIAAQAAAAsAAABpbnRlcmFjdGl2ZTAAACKCTW182kg3APrqzpm3WUhFva-Ck_FByNw.SbL702Ps7R2km98sXOGspxe7d2D9Djfg5M5NgYTjy0F0g7aTt1_75tfzNvydXjpjs2PtXsSCg5yCMjgzc8tf3nKvW806DW8O9I6b6jPUygQLiJJTxlEBxRreWQeymEi8B7DK9jT1EnGz0fQ4U1aKePWChip3TsFFIVkBsDEBfYog98NokoUnMuJvMmTMAlhGCDGlXpsrZK15CPiHmjTDNRWOuJ_gvBveEgUWgrKVEPn5-AlzSWg84-urfbxoFdYCYiTCwfuutunDm5L4ibwRLy5BYRRo6NFw2UvDfGPfYZOFlju79MbTv1qn5nwf0qgypejAIiPiyqryD1Hr114TDg',
-    'ds_return_url': 'http://localhost:3001',
-    'starting_view': 'recipient'
-}
-
-Eg011EmbeddedSendingController.worker(trial_args, doc_pdf_path="yourfile.pdf")

@@ -8,6 +8,7 @@ import {
   Link,
   StyledOcticon,
   Heading,
+  Flash,
 } from "@primer/react";
 import { useState, useEffect } from "react";
 import Logo from "../../public/logo.png";
@@ -60,6 +61,11 @@ export function Home() {
   return (
     <>
       <Box p={5} display={"flex"} flexDirection="column" alignItems={"center"}>
+        {searchParams.get("envelopeId") && (
+          <Flash variant="success">
+            Your document has been mailed successfully
+          </Flash>
+        )}
         {isLoading && (
           <Spinner
             sx={{
@@ -67,7 +73,7 @@ export function Home() {
             }}
           />
         )}
-		<Text>{message}</Text>
+        <Text>{message}</Text>
         {data && (
           <>
             <Box display={"flex"} flexDirection="column">
@@ -106,7 +112,11 @@ export function Home() {
                       <Box display={"flex"} flexDirection="column">
                         <Link
                           as={RouteLink}
-                          to={"/" + folder.id + `?date=${folder.date}&camera_id=${folder.name}`}
+                          to={
+                            "/" +
+                            folder.id +
+                            `?date=${folder.date}&camera_id=${folder.name}`
+                          }
                           color={"fg.default"}
                         >
                           {folder.name}

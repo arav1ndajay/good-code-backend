@@ -9,7 +9,7 @@ from starlette.middleware.cors import CORSMiddleware
 from .survey123 import survey
 import base64
 import json
-from docusign import embeded_sender
+from .docusign import embeded_sender
 
 app = FastAPI()
 
@@ -166,15 +166,23 @@ async def get_assets_with_metadata_in_category(category_id: str, req: Request):
     return assets
 
 
-@app.get("/updatemetadata")
+@app.post("/updatemetadata")
 async def updatemetada(req: Request):
-    # 19ac758a-cc23-464b-a63c-0caa55fc957b: 224, 39c739bb-ea45-4ac0-9163-808be9ef97cd: 235, 35dcc687-ae2c-45bd-ba2f-873f51e0f100: 295
-    ids = [
-        "324e00f7-3081-4e58-9306-61ab3603ed8b",
-        "19ac758a-cc23-464b-a63c-0caa55fc957b",
-        "39c739bb-ea45-4ac0-9163-808be9ef97cd",
-        "35dcc687-ae2c-45bd-ba2f-873f51e0f100"
-    ]
+    body = await req.json()
+    account_id = body["sender"]["accountId"]
+    envelope_id = body["envelopeId"]
+
+    url_fetch = f"http://demo.docusign.net/restapi/v2.1/accounts/{account_id}/envelopes/{envelope_id}/form_data"
+    res1 = requests.get(url_fetch,
+                            headers={
+                                'Content-Type':
+                                'application/x-www-form-urlencoded',
+                                "Authorization": "Bearer " + access_token,
+                            })
+    ids = []
+    for ans in res1["formData"]:
+	    if ans["value"] == "X":
+             ids.append(ans["name"])
 
     url = f"https://api.mediavalet.com/assets/{ids[0]}"
 
