@@ -17,8 +17,8 @@ import json
 app = FastAPI()
 
 origins = [
-    "http://localhost",
-    "http://localhost:3000",
+    "http://localhost", "http://localhost:3000",
+    "https://hackathonjgi.software"
 ]
 
 app.add_middleware(
@@ -121,7 +121,7 @@ async def get_categories(req: Request):
 
 
 @app.get("/categories/{category_id}")
-async def get_assets_in_category(category_id: str, req: Request):
+async def get_assets_with_metadata_in_category(category_id: str, req: Request):
     url = "https://api.mediavalet.com/assets"
 
     header = req.headers["Authorization"].split()
@@ -140,15 +140,134 @@ async def get_assets_in_category(category_id: str, req: Request):
                             })
     result = response.json()
 
+    url2 = "https://api.mediavalet.com/attributes"
+    response2 = requests.get(url2,
+                             headers={
+                                 "Ocp-Apim-Subscription-Key":
+                                 settings.primary_key,
+                                 "Authorization": "Bearer " + access_token,
+                             })
+    result2 = response2.json()
+
+    attributes = []
+
+    for res in result2["payload"]:
+        if res["name"] == "X" or res["name"] == "Y":
+            attributes.append({"id": res["id"], "name": res["name"]})
+
+    print(attributes)
+
     assets = []
     for res in result["payload"]["assets"]:
-        if category_id in res["categories"]:
+        if category_id in res["categories"] and attributes[0]["id"] in res[
+                "attributes"]:
             asset = {"id": res["id"], "link": res["media"]["medium"]}
             assets.append(asset)
 
     print(assets)
 
     return assets
+
+
+@app.get("/updatemetadata")
+async def updatemetada(req: Request):
+    # 19ac758a-cc23-464b-a63c-0caa55fc957b: 224, 39c739bb-ea45-4ac0-9163-808be9ef97cd: 235, 35dcc687-ae2c-45bd-ba2f-873f51e0f100: 295
+    ids = [
+        "324e00f7-3081-4e58-9306-61ab3603ed8b",
+        "19ac758a-cc23-464b-a63c-0caa55fc957b",
+        "39c739bb-ea45-4ac0-9163-808be9ef97cd",
+        "35dcc687-ae2c-45bd-ba2f-873f51e0f100"
+    ]
+
+    url = f"https://api.mediavalet.com/assets/{ids[0]}"
+
+    header = req.headers["Authorization"].split()
+    access_token = ""
+    if header[0] == "Bearer":
+        access_token = header[1]
+    else:
+        raise HTTPException(status_code=401, detail="Unauthorized")
+
+    response = requests.get(url,
+                            headers={
+                                'Content-Type':
+                                'application/x-www-form-urlencoded',
+                                "Ocp-Apim-Subscription-Key":
+                                settings.primary_key,
+                                "Authorization": "Bearer " + access_token,
+                            })
+
+    result = response.json()
+    category_id = result["payload"]["categories"][0]
+
+    url2 = f"https://api.mediavalet.com/categories/{category_id}"
+
+    response2 = requests.get(url2,
+                             headers={
+                                 'Content-Type':
+                                 'application/x-www-form-urlencoded',
+                                 "Ocp-Apim-Subscription-Key":
+                                 settings.primary_key,
+                                 "Authorization": "Bearer " + access_token,
+                             })
+
+    result2 = response2.json()
+
+    cat_name = str(result2["payload"]["name"]).split("_", maxsplit=1)
+    survey_info = survey.get_info(camera_id=cat_name[0].title(),
+                                  date=cat_name[1])
+
+    x_coord = survey_info["X"]
+    y_coord = survey_info["Y"]
+
+    # X and Y attribute ids are hardcoded for now
+    for id in ids:
+        url = f"https://api.mediavalet.com/assets/{id}/"
+
+        response = requests.patch(
+            url,
+            headers={
+                "Ocp-Apim-Subscription-Key": settings.primary_key,
+                "Authorization": "Bearer " + access_token,
+            },
+            json=[{
+                "op": "replace",
+                "path": "/attributes/c0c67677-b8eb-4522-844b-a4aeb9be7807",
+                "value": x_coord
+            }, {
+                "op": "replace",
+                "path": "/attributes/6ce37da1-e78f-426a-9505-671fe9161272",
+                "value": y_coord
+            }])
+
+    return {"metadata": "updated"}
+
+
+@app.get("/attributes")
+async def get_attributes(req: Request):
+    url = "https://api.mediavalet.com/attributes"
+
+    header = req.headers["Authorization"].split()
+    access_token = ""
+    if header[0] == "Bearer":
+        access_token = header[1]
+    else:
+        raise HTTPException(status_code=401, detail="Unauthorized")
+    response = requests.get(url,
+                            headers={
+                                "Ocp-Apim-Subscription-Key":
+                                settings.primary_key,
+                                "Authorization": "Bearer " + access_token,
+                            })
+    result = response.json()
+
+    attributes = []
+    for res in result["payload"]:
+        attributes.append({"id": res["id"], "name": res["name"]})
+
+    print(attributes)
+
+    return attributes
 
 
 @app.get("/user")
@@ -176,10 +295,11 @@ async def get_user():
     return result
 
 
-@app.get("/survey123/")
-async def get_survey123(camera_id: str, date: str):
-
-    return survey.get_info(camera_id=camera_id, date=date)
+@app.post("/survey123/")
+async def get_survey123(req: Request):
+    details = await req.json()
+    return survey.get_info(camera_id=details['camera_id'],
+                           date=details['date'])
 
 
 @app.get("/docusign/authorize")
@@ -223,3 +343,10 @@ async def authorize_mediavalet(code: str):
         convert_file.write(json.dumps(response))
 
     return response
+
+
+@app.post("/docusign/notify")
+async def docusign_notify(req: Request):
+    vari = await req.json()
+    print(vari)
+    return
