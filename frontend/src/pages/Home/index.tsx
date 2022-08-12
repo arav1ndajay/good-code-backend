@@ -98,7 +98,7 @@ export function Home() {
                       <Box display={"flex"} flexDirection="column">
                         <Link
                           as={RouteLink}
-                          to={"/" + folder.id}
+                          to={"/" + folder.id + `?date=${folder.date}`}
                           color={"fg.default"}
                         >
                           {folder.name}

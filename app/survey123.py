@@ -22,8 +22,11 @@ class CameraTrapSurvey:
 
     def get_entry(self, camera_id: str, date: str):
 
+        # print(self.df['date'] == datetime.datetime.strptime(
+        #     date, "%Y").date())
+
         return self.df.loc[(self.df['date'] == datetime.datetime.strptime(
-            date, "%Y-%m-%d").date()) & (self.df['camera_id'] == camera_id)]
+            date, "%d_%m_%Y").date()) & (self.df['camera_id'] == camera_id)]
 
     def get_info(self, camera_id: str, date: str):
 

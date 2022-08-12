@@ -175,7 +175,7 @@ async def get_user():
     return result
 
 
-@app.get("/survey123/")
-async def get_survey123(camera_id: str, date: str):
-
-    return survey.get_info(camera_id=camera_id, date=date)
+@app.post("/survey123/")
+async def get_survey123(req: Request):
+	body = await req.json()
+	return survey.get_info(camera_id=body["camera_id"], date=body["date"])
