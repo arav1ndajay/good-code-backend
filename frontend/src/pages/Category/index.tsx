@@ -4,11 +4,12 @@ import {
   Heading,
   Spinner,
   useOnOutsideClick,
+  Text
 } from "@primer/react";
 import { useQuery } from "@tanstack/react-query";
 import { useCallback, useRef, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
-import { Get, Post } from "../../api/Api";
+import { Get, NotLoggedInError, Post } from "../../api/Api";
 import { motion } from "framer-motion";
 import MapDisplay from "../../components/map";
 import { Question } from "./components/question";
@@ -30,7 +31,7 @@ export function Category() {
   } = useQuery(["details"], () =>
     Post(
       {
-        camera_id: "Camera1",
+        camera_id: searchParams.get("camera_id"),
         date: searchParams.get("date"),
       },
       "https://api.hackathonjgi.software/survey123"
@@ -42,6 +43,14 @@ export function Category() {
   const closeDrawer = useCallback(() => {
     setOpen(false);
   }, [setOpen, open]);
+
+  var message = "";
+
+  if (isMapError && mapError instanceof NotLoggedInError) {
+    message = "Please log in to continue";
+  } else if (isError) {
+    message = "Unexpected error occurred";
+  }
 
   return (
     <>
@@ -61,7 +70,7 @@ export function Category() {
             alignItems={"center"}
             justifyContent="center"
           >
-            {isMapError ? <Box>Error</Box> : <Spinner />}
+            {isMapError ? <Text>{message}</Text> : <Spinner />}
           </Box>
         )}
         {isSuccess && (
